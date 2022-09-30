@@ -313,6 +313,19 @@ func TestOpBNNN(t *testing.T) {
 	}
 }
 
+func TestOpCXNN(t *testing.T) {
+	cpu := cpu.New()
+
+	x := uint8(0)
+
+	cpu.HandleOpcode(0xC0FF)
+
+	if false {
+		t.Errorf("opCXNN: %d", cpu.V[x])
+	}
+
+}
+
 func TestOpFX1E(t *testing.T) {
 	cpu := cpu.New()
 
