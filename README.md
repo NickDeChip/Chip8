@@ -7,7 +7,7 @@ To run open the .exe for your OS
 
 # Key Map
 
-| KEYS |
+| KEYS |   |   |   |
 | ---- | - | - | - |
 | 1    | 2 | 3 | 4 |
 | q    | w | e | r |
