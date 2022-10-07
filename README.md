@@ -3,7 +3,7 @@ This is a Chip8 emulator made in golang.
 
 # How To Use
 
-To run open the .exe for your OS
+Run : go run ./cmd/chip8/main.go
 
 # Key Map
 
