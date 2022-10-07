@@ -8,8 +8,8 @@ To run open the .exe for your OS
 # Key Map
 
 | KEYS |
-| ---- |
-| 1 | 2 | 3 | 4 |
-| q | w | e | r |
-| a | s | d | f |
-| z | x | c | v |
+| ---- | - | - | - |
+| 1    | 2 | 3 | 4 |
+| q    | w | e | r |
+| a    | s | d | f |
+| z    | x | c | v |
