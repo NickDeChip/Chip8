@@ -56,7 +56,7 @@ func New() *CPU {
 func (cpu *CPU) HandleOpcode(opcode uint16) {
 	x, y := getXY(opcode)
 	//fmt.Printf("PC: %x\n", cpu.PC)
-	fmt.Printf("Opcode: %x\n", opcode)
+	//fmt.Printf("Opcode: %x\n", opcode)
 
 	cpu.PC += 2
 
@@ -309,10 +309,12 @@ func (cpu *CPU) opDXYN(opcode uint16, x uint8, y uint8) {
 		pixel := cpu.Memory[cpu.I+yLine]
 		for xLine := uint16(0); xLine < 8; xLine++ {
 			if (pixel & (0x80 >> xLine)) != 0 {
-				if cpu.GFX[(cpu.V[y] + uint8(yLine))][cpu.V[x]+uint8(xLine)] == 1 {
+				row := (cpu.V[y] + uint8(yLine)) % 32
+				col := (cpu.V[x] + uint8(xLine)) % 64
+				if cpu.GFX[row][col] == 1 {
 					cpu.V[0xF] = 1
 				}
-				cpu.GFX[(cpu.V[y] + uint8(yLine))][cpu.V[x]+uint8(xLine)] ^= 1
+				cpu.GFX[row][col] ^= 1
 			}
 		}
 	}

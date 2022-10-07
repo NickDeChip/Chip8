@@ -10,12 +10,17 @@ const scale = 10
 
 func main() {
 	rl.InitWindow(64*scale, 32*scale, "Chip8++ | FPS: 0")
-	rl.SetTargetFPS(120)
+	rl.InitAudioDevice()
+	rl.SetTargetFPS(200)
 
 	chip8 := cpu.New()
 	chip8.LoadFontsetIntoMemory()
 
 	chip8.LoadFileIntoMemory("./roms/BREAKOUT")
+
+	beep := rl.LoadMusicStream("./assets/beep.wav")
+
+	isBeeping := false
 
 	for !rl.WindowShouldClose() {
 		rl.SetWindowTitle(fmt.Sprintf("Chip8++ | FPS: %v", rl.GetFPS()))
@@ -25,6 +30,23 @@ func main() {
 
 		chip8.UpdateTimers(rl.GetFrameTime())
 		chip8.HandleOpcode(chip8.GetCurrentOpcode())
+
+		rl.UpdateMusicStream(beep)
+
+		if chip8.SoundTimer > 0 {
+			timePlayed := rl.GetMusicTimePlayed(beep) / rl.GetMusicTimeLength(beep)
+			if timePlayed >= 1 {
+				rl.StopMusicStream(beep)
+				isBeeping = false
+			}
+			if !isBeeping {
+				rl.PlayMusicStream(beep)
+				isBeeping = true
+			}
+		} else if isBeeping {
+			rl.StopMusicStream(beep)
+			isBeeping = false
+		}
 
 		rl.BeginDrawing()
 		if chip8.ShouldClearScreen {
@@ -42,8 +64,9 @@ func main() {
 			}
 		}
 		rl.EndDrawing()
-
 	}
+	rl.UnloadMusicStream(beep)
+	rl.CloseAudioDevice()
 	rl.CloseWindow()
 }
 
