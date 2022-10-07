@@ -8,7 +8,12 @@ import (
 
 const scale = 10
 
+var romLoaded = ""
+var chosenGame = uint8(0)
+
 func main() {
+	gamePicker()
+
 	rl.InitWindow(64*scale, 32*scale, "Chip8++ | FPS: 0")
 	rl.InitAudioDevice()
 	rl.SetTargetFPS(200)
@@ -16,7 +21,7 @@ func main() {
 	chip8 := cpu.New()
 	chip8.LoadFontsetIntoMemory()
 
-	chip8.LoadFileIntoMemory("./roms/BREAKOUT")
+	chip8.LoadFileIntoMemory(romLoaded)
 
 	beep := rl.LoadMusicStream("./assets/beep.wav")
 
@@ -169,5 +174,85 @@ func handleKeyUp(chip8 *cpu.CPU) {
 	}
 	if rl.IsKeyUp(rl.KeyV) {
 		chip8.Key[0xF] = 0
+	}
+}
+
+func gamePicker() {
+	fmt.Println("1 - 15PUZZLE")
+	fmt.Println("2 - BLINKY")
+	fmt.Println("3 - BREAKOUT")
+	fmt.Println("4 - BRIX")
+	fmt.Println("5 - CONNECT4")
+	fmt.Println("6 - GUESS")
+	fmt.Println("7 - HIDDEN")
+	fmt.Println("8 - INVADERS")
+	fmt.Println("9 - KALEID")
+	fmt.Println("10 - MAZE")
+	fmt.Println("11 - MERLIN")
+	fmt.Println("12 - MISSILE")
+	fmt.Println("13 - PONG")
+	fmt.Println("14 - PONG2")
+	fmt.Println("15 - PUZZLE")
+	fmt.Println("16 - SQUASH")
+	fmt.Println("17 - SYZYGY")
+	fmt.Println("18 - TANK")
+	fmt.Println("19 - TETRIS")
+	fmt.Println("20 - TICTAC")
+	fmt.Println("21 - UFO")
+	fmt.Println("22 - VBRIX")
+	fmt.Println("23 - WALL")
+	fmt.Println("24 - WIPEOFF")
+	fmt.Println("Input the number for the game you would like to play:")
+	fmt.Scan(&chosenGame)
+
+	switch chosenGame {
+	case 1:
+		romLoaded = "./roms/15PUZZLE"
+	case 2:
+		romLoaded = "./roms/BLINKY"
+	case 3:
+		romLoaded = "./roms/BREAKOUT"
+	case 4:
+		romLoaded = "./roms/BRIX"
+	case 5:
+		romLoaded = "./roms/CONNECT4"
+	case 6:
+		romLoaded = "./roms/GUESS"
+	case 7:
+		romLoaded = "./roms/HIDDEN"
+	case 8:
+		romLoaded = "./roms/INVADERS"
+	case 9:
+		romLoaded = "./roms/KALEID"
+	case 10:
+		romLoaded = "./roms/MAZE"
+	case 11:
+		romLoaded = "./roms/MERLIN"
+	case 12:
+		romLoaded = "./roms/MISSILE"
+	case 13:
+		romLoaded = "./roms/PONG"
+	case 14:
+		romLoaded = "./roms/PONG2"
+	case 15:
+		romLoaded = "./roms/PUZZLE"
+	case 16:
+		romLoaded = "./roms/SQUASH"
+	case 17:
+		romLoaded = "./roms/SYZYGY"
+	case 18:
+		romLoaded = "./roms/TANK"
+	case 19:
+		romLoaded = "./roms/TETRIS"
+	case 20:
+		romLoaded = "./roms/TICTAC"
+	case 21:
+		romLoaded = "./roms/UFO"
+	case 22:
+		romLoaded = "./roms/VBRIX"
+	case 23:
+		romLoaded = "./roms/WALL"
+	case 24:
+		romLoaded = "./roms/WIPEOFF"
 	}
 }
