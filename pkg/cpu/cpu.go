@@ -295,7 +295,7 @@ func (cpu *CPU) opBNNN(opcode uint16) {
 
 func (cpu *CPU) opCXNN(opcode uint16, x uint8) {
 	NN := uint16(opcode & 0x00FF)
-	rand.Seed(time.Now().Unix())
+	rand.Seed(time.Now().UnixNano())
 	randInt := rand.Int31n(255)
 
 	cpu.V[x] = (uint8(randInt)) & uint8(NN)
