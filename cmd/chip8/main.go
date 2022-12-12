@@ -14,9 +14,10 @@ var chosenGame = uint8(0)
 func main() {
 	gamePicker()
 
+	FPSCap := true
+
 	rl.InitWindow(64*scale, 32*scale, "Chip8++ | FPS: 0")
 	rl.InitAudioDevice()
-	rl.SetTargetFPS(200)
 
 	chip8 := cpu.New()
 	chip8.LoadFontsetIntoMemory()
@@ -29,6 +30,16 @@ func main() {
 
 	for !rl.WindowShouldClose() {
 		rl.SetWindowTitle(fmt.Sprintf("Chip8++ | FPS: %v", rl.GetFPS()))
+
+		if rl.IsKeyPressed(rl.KeyFive) {
+			FPSCap = !FPSCap
+		}
+
+		if FPSCap && rl.IsKeyPressed(rl.KeyFive) {
+			rl.SetTargetFPS(200)
+		} else if rl.IsKeyPressed(rl.KeyFive) {
+			rl.SetTargetFPS(60)
+		}
 
 		handleKeyPress(chip8)
 		handleKeyUp(chip8)
